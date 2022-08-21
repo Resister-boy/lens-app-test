@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { client, getProfiles, getPublications } from '../../api';
+import Layout from '../../components/layout'
 import Image from 'next/image';
 
 export default function Profile() {
@@ -32,9 +33,22 @@ export default function Profile() {
     }
   }
   return (
-    <div>
-      <div>{id}</div>
+    <Layout>
       <div>{profile.bio}</div>
+      {
+        profile.coverPicture && (profile.coverPicture.original.url.includes('lens.infura-ipfs.io') === true)
+        ? ( <Image 
+          src={profile.coverPicture.original.url} 
+          alt={profile.name} 
+          width={200}
+          height={200} /> )   
+      : ( 
+        <Image
+          src="https://icon-library.com/images/no-image-icon/no-image-icon-1.jpg"
+          alt="No Image" 
+          width={200}
+          height={200} /> )
+      }
       {
         profile.picture && (profile.picture.original.url.includes('lens.infura-ipfs.io') === true)
           ? ( <Image 
@@ -61,6 +75,6 @@ export default function Profile() {
           })
         }
       </div>
-    </div>
+    </Layout>
   )
 }

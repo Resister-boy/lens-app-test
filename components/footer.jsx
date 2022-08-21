@@ -1,8 +1,17 @@
 import React from 'react'
+import styles from '../styles/Footer.module.scss';
+import Logo from '../components/logo'
 
 function footer() {
   return (
-    <div>footer</div>
+    <div className={styles.container}>
+      <div className={styles.inner}>
+        <Logo />
+        <div>
+          <span>github</span>
+        </div>
+      </div>
+    </div>
   )
 }
 

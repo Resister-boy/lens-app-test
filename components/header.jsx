@@ -1,5 +1,6 @@
 import React from 'react'
 import Logo from './logo'
+import Link from 'next/link'
 import styles from '../styles/Header.module.scss'
 
 function home() {
@@ -7,17 +8,27 @@ function home() {
     <>
       <header className={styles.container}>
         <div className={styles.inner}>
-          <Logo />
+          <Link href="/">
+            <a>
+              <Logo />        
+            </a>
+          </Link>
           <nav className={styles.nav_container}>
-          <div className={styles.nav_item}>
-            Home
-          </div>
-          <div className={styles.nav_item}>
-            Home
-          </div>
-          <div className={styles.nav_item}>
-            Home
-          </div>
+            <Link href="/">
+              <a  className={styles.nav_item}>
+                Home
+              </a>
+            </Link>
+            <Link href="/">
+              <a className={styles.nav_item}>
+                Home
+              </a>
+           </Link>
+            <Link href="/">
+              <a className={styles.nav_item}>
+                Home
+              </a>
+            </Link>
         </nav>
         </div>
       </header>
