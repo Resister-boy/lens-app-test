@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { client, recommendProfiles } from '../api';
 import Link from 'next/link';
 import Image from 'next/image';
+import Layout from '../components/layout'
 
 export default function Home() {
   const [profiles, setProfiles] = useState([]);
@@ -23,7 +24,7 @@ export default function Home() {
     }
   }
   return (
-    <div>홍홍
+    <Layout>홍홍
     {
       profiles.map((profile,index) => (
         <Link key={index} href={`/profile/${profile.id}`}>
@@ -53,6 +54,6 @@ export default function Home() {
         </Link>
       ))
     }
-    </div>
+    </Layout>
   );
 }
