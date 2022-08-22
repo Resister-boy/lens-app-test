@@ -17,7 +17,9 @@ export default function Home() {
       const response = await client.query(recommendProfiles).toPromise();
       console.log(response)
       setProfiles(response.data.recommendedProfiles);
-      console.log(response.data.recommendedProfiles[0].picture.original.url)
+      // for(let i = 0; i < response.data.recommendedProfiles.length; i++) {
+      //   console.log(response.data.recommendedProfiles[i].picture.original.url, i)
+      // }
     } catch (error) {
       console.log({error});
     }
@@ -30,22 +32,21 @@ export default function Home() {
               profiles.map((profile, index) => (
                 <div key={index} className={styles.user_item}>
                   <div className={styles.item_content}>
-                    {/* {
-                      profile.picture && (profile.picture.original.url.includes('lens.infura-ipfs.io') === true)
+                    {profile.picture === null || profile.picture.uri || (profile.picture.original.url.includes('lens.infura-ipfs.io') === false)
                         ? (
+                        <Image
+                          src="https://icon-library.com/images/no-image-icon/no-image-icon-1.jpg"
+                          alt="No Image" 
+                          width={170}   
+                          height={170} />
+                        ) : (
                         <Image
                           src={profile.picture.original.url}
                           alt={profile.name}
                           width={170} 
                           height={170} />
-                        ) : (
-                        <Image
-                          src="https://icon-library.com/images/no-image-icon/no-image-icon-1.jpg"
-                          alt="No Image" 
-                          width={170} 
-                          height={170} />
-                        )
-                    } */}
+                        ) 
+                      }
                   <b className={styles.user_name}>{profile.handle}</b>
                   {profile.bio 
                     ? <span className={styles.user_bio}>{profile.bio.length > 70

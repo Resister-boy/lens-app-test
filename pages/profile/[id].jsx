@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { client, getProfiles, getPublications } from '../../api';
 import Layout from '../../components/layout'
+import styles from '../../styles/Profile.module.scss'
 import Image from 'next/image';
 
 export default function Profile() {
@@ -34,46 +35,68 @@ export default function Profile() {
   }
   return (
     <Layout>
-      <div>{profile.bio}</div>
-      {
-        profile.coverPicture && (profile.coverPicture.original.url.includes('lens.infura-ipfs.io') === true)
-        ? ( <Image 
-          src={profile.coverPicture.original.url} 
-          alt={profile.name} 
-          width={200}
-          height={200} /> )   
-      : ( 
-        <Image
-          src="https://icon-library.com/images/no-image-icon/no-image-icon-1.jpg"
-          alt="No Image" 
-          width={200}
-          height={200} /> )
-      }
-      {
-        profile.picture && (profile.picture.original.url.includes('lens.infura-ipfs.io') === true)
-          ? ( <Image 
-              src={profile.picture.original.url} 
-              alt={profile.name} 
-              width={200}
-              height={200} /> )   
-          : ( 
-            <Image
-              src="https://icon-library.com/images/no-image-icon/no-image-icon-1.jpg"
-              alt="No Image" 
-              width={200}
-              height={200} /> )
-      }
-      <div>{profile.handle}</div>
-      <div>
-        {
-          publications.map((publication, index) => {
-            return (
-              <div key={index}>
-                {publication.appId}
+      <div className={styles.container}>
+        <div className={styles.inner}>
+          {
+            profile.coverPicture && (profile.coverPicture.original.url.includes('lens.infura-ipfs.io') === true)
+            ? ( <div className={styles.coverImage}>
+                  <Image 
+                  src={profile.coverPicture.original.url} 
+                  alt={profile.name} 
+                  width={`${1240}`}
+                  height={400} 
+                  style={{ borderRadius: 10}} />
               </div>
+              ) : (  
+            <div className={styles.AlterCoverImage}>
+              <span>No  Cover Image</span>
+            </div> 
             )
-          })
-        }
+          }
+          <div className={styles.profile_container}>
+            {
+              profile.picture && (profile.picture.original.url.includes('lens.infura-ipfs.io') === true)
+                ? ( <div className={styles.image_container}>
+                    <Image 
+                      src={profile.picture.original.url} 
+                      alt={profile.name} 
+                      width={150}
+                      height={150} 
+                      style={{ borderRadius: 10}} />
+                      
+                  </div> )   
+                : ( 
+                  <Image
+                    src="https://icon-library.com/images/no-image-icon/no-image-icon-1.jpg"
+                    alt="No Image" 
+                    width={200}
+                    height={200} /> )
+            }
+            <div className={styles.information_container}>
+              <div className={styles.person_container}>
+                <span className={styles.handle}>{profile.handle}</span>
+                <span className={styles.name}>{profile.name}</span><br />
+                <span className={styles.bio}>{profile.bio}</span>
+              </div>
+              {profile.stats
+                ? <div className={styles.follow_container}>
+                  <div>
+                    <span className={styles.type}>Follower</span><span className={styles.value}>{profile.stats.totalFollowers}</span>
+                  </div>
+                  <div>
+                    <span className={styles.type}>Following</span><span className={styles.value}>{profile.stats.totalFollowing}</span>
+                  </div>
+                  <div>
+                    <span className={styles.type}>Posts</span><span className={styles.value}>{profile.stats.totalPosts}</span>
+                  </div>
+                  <div>
+                    <span className={styles.type}>Collections</span><span className={styles.value}>{profile.stats.totalCollect}</span>
+                  </div>
+                  </div>
+                : null }
+            </div>
+          </div>
+        </div>
       </div>
     </Layout>
   )

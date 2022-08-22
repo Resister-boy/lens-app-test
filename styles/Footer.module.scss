@@ -3,9 +3,13 @@
   background-color: #adff2f;
   .inner {
     width: 80%;
-    height: 200px;
+    height: 60px;
     margin: 0 auto;
     display: flex;
-    align-items: center;
+    align-items:flex-end;
+    justify-content: center;
+    padding-bottom: 10px;
+    color: #006eff;
+    font-size: 12px;
   }
 }
