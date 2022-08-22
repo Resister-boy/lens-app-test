@@ -1,0 +1,21 @@
+.container {
+  width: 100%;
+  height: 83vh;
+  display: flex;
+  align-items: center;
+  .inner {
+    margin: 0 auto;
+    width: 80%;
+    text-align: center;
+    .page {
+      font-size: 100px;
+      font-weight: 600;
+      color: #adff2f;
+    }
+    .notFound {
+      color: #ccc;
+      font-weight: 600;
+      font-size: 60px;
+    }
+  }
+}
