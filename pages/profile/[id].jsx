@@ -4,6 +4,12 @@ import { client, getProfiles, getPublications } from '../../api';
 import Layout from '../../components/layout'
 import styles from '../../styles/Profile.module.scss'
 import Image from 'next/image';
+import Post from '../../components/post'
+import Platform from '../../components/platform'
+import { ethers } from 'ethers';
+import ABI from '../../ABI/contractABI.json'
+
+const CONTRACT_ADDRESS = "0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d"
 
 export default function Profile() {
   const router = useRouter();
@@ -33,6 +39,26 @@ export default function Profile() {
       console.error(error);
     }
   }
+
+  async function followUser() {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(
+      CONTRACT_ADDRESS,
+      ABI,
+      signer
+    )
+    try {
+      const tx = contract.follow(
+        [id],[0x0]
+      )
+      await tx.wait();
+      console.log("followed user successfully...");
+    } catch(error){
+      console.log(error);
+      }
+  }
+
   return (
     <Layout>
       <div className={styles.container}>
@@ -75,26 +101,35 @@ export default function Profile() {
             <div className={styles.information_container}>
               <div className={styles.person_container}>
                 <span className={styles.handle}>{profile.handle}</span>
-                <span className={styles.name}>{profile.name}</span><br />
+                <span className={styles.name}>{profile.name}</span>
+                <button className={styles.followButton} onClick={followUser}>Follow</button> <br />
                 <span className={styles.bio}>{profile.bio}</span>
+ 
               </div>
               {profile.stats
                 ? <div className={styles.follow_container}>
-                  <div>
-                    <span className={styles.type}>Follower</span><span className={styles.value}>{profile.stats.totalFollowers}</span>
-                  </div>
-                  <div>
-                    <span className={styles.type}>Following</span><span className={styles.value}>{profile.stats.totalFollowing}</span>
-                  </div>
-                  <div>
-                    <span className={styles.type}>Posts</span><span className={styles.value}>{profile.stats.totalPosts}</span>
-                  </div>
-                  <div>
-                    <span className={styles.type}>Collections</span><span className={styles.value}>{profile.stats.totalCollect}</span>
-                  </div>
+                    <div>
+                      <span className={styles.type}>Follower</span><span className={styles.value}>{profile.stats.totalFollowers}</span>
+                    </div>
+                    <div>
+                      <span className={styles.type}>Following</span><span className={styles.value}>{profile.stats.totalFollowing}</span>
+                    </div>
+                    <div>
+                      <span className={styles.type}>Posts</span><span className={styles.value}>{profile.stats.totalPosts}</span>
+                    </div>
+                    <div>
+                      <span className={styles.type}>Collections</span><span className={styles.value}>{profile.stats.totalCollect}</span>
+                    </div>
                   </div>
                 : null }
+ 
             </div>
+          </div>
+          <div>
+            <Platform title={profile} />
+          </div>
+          <div>
+            <Post contents={publications} />
           </div>
         </div>
       </div>

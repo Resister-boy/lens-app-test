@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Layout from '../components/layout'
 import styles from '../styles/Home.module.scss'
 
+
 export default function Home() {
   const [profiles, setProfiles] = useState([]);
 
@@ -24,6 +25,8 @@ export default function Home() {
       console.log({error});
     }
   }
+
+
   return (
     <Layout>
       <div className={styles.container}>
@@ -55,10 +58,9 @@ export default function Home() {
                     : <span className={styles.user_bio}>No Bio</span>
                   }
                   <div className={styles.button_container}>
-                    <button>Follow</button>
                     <Link href={`/profile/${profile.id}`}>
                       <a>
-                        <button>Profile</button>
+                        <button>Watch Profile</button>
                       </a>
                     </Link>
                   </div>

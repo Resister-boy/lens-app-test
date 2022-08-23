@@ -41,6 +41,20 @@
             font-size: 15px;
             color: #757575;
           }
+          .followButton {
+            border: 1px solid #adff2f;
+            background-color: #fff;
+            color: #adff2f;
+            padding: 5px 10px;
+            border-radius: 7px;
+            transition: all .3s;
+            margin-left: 10px;
+            &:hover {
+              cursor: pointer;
+              background-color: #adff2f;
+              color: #fff;
+            }
+          }
         }
         .follow_container {
           margin-top: 20px;

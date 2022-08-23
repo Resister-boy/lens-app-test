@@ -13,14 +13,16 @@
       width: 30%;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      .nav_item {
+      justify-content: flex-end;
+      .button {
         color: #006eff;
         padding: 5px 14px 7px;
+        border: 1px solid #ccc;
         font-weight: 600;
         font-size: 17px;
         border-radius: 7px;
         transition: all .3s;
+        background-color: #cdff81;
         &:hover {
           cursor: pointer;
           background-color: #cdff81;
